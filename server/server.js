@@ -13,6 +13,6 @@ container.deployModule("org.crashub~vertx.shell~2.0.0", {
     "crash.ssh.port": 2000
 });
 
-vertx.eventBus.registerHandler('shibuya.java', function(message, replier) {
+vertx.eventBus.registerHandler('shibuya.java', function(message) {
     console.log('I received a message ' + message);
 });

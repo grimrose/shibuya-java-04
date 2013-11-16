@@ -10,14 +10,15 @@ dependencies {
     sshTask 'org.apache.ant:ant-jsch:1.9.2'
 }
 
-task sshDemoTask << {
-    ant {
-        taskdef(
-            name: 'sshexec',
-            classname: 'org.apache.tools.ant.taskdefs.optional.ssh.SSHExec',
-            classpath: configurations.sshTask.asPath
-        )
-    }
+ant {
+    taskdef(
+        name: 'sshexec',
+        classname: 'org.apache.tools.ant.taskdefs.optional.ssh.SSHExec',
+        classpath: configurations.sshTask.asPath
+    )
+}
+
+task demo << {
     ant.sshexec(
         host: 'localhost',
         port: 2000,
@@ -31,13 +32,6 @@ task sshDemoTask << {
 import groovy.json.*
 
 task hello << {
-    ant {
-        taskdef(
-            name: 'sshexec',
-            classname: 'org.apache.tools.ant.taskdefs.optional.ssh.SSHExec',
-            classpath: configurations.sshTask.asPath
-        )
-    }
     def json = new JsonBuilder()
 
     json (
@@ -54,14 +48,3 @@ task hello << {
         command: "bus send shibuya.java ${json}" 
     )
 }
-
-
-// <taskdef name="sshexec" classname="org.apache.tools.ant.taskdefs.optional.ssh.SSHExec">
-//   <classpath>
-//     <pathelement location="${lib}/jsch-0.1.48.jar"/>  
-//   </classpath>
-// </taskdef> 
-
-// <target name="sshcmd" description="ssh command">    
-//     <sshexec host="X.X.X.X" username="USER" password="PASS" command="cmd" trust="true"/>
-// </target>
